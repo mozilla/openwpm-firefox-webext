@@ -40,7 +40,7 @@
     "url": "https://github.com/nhnt11/WEE-Sockets-API-Example"
   },
   "scripts": {
-    "prebuild": "cp -r node_modules/WEE-Sockets-API/lib/* src/ && cp -r node_modules/WEE-FileWriting-API/lib/privileged/* src/privileged/ && webpack",
+    "prebuild": "cp -r node_modules/WEE-Sockets-API/lib/* src/ && cp -r node_modules/WEE-ProfileDirIO-API/lib/privileged/* src/privileged/ && webpack",
     "build": "web-ext build",
     "eslint": "eslint . --ext jsm,js,json",
     "lint": "npm-run-all lint:*",

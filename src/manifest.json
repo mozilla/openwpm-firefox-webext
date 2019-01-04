@@ -44,12 +44,12 @@
         "paths": [["sockets"]]
       }
     },
-    "filewriting": {
-      "schema": "./privileged/filewriting/schema.json",
+    "profileDirIO": {
+      "schema": "./privileged/profileDirIO/schema.json",
       "parent": {
         "scopes": ["addon_parent"],
-        "script": "./privileged/filewriting/api.js",
-        "paths": [["filewriting"]]
+        "script": "./privileged/profileDirIO/api.js",
+        "paths": [["profileDirIO"]]
       }
     }
   }
