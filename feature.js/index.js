@@ -5,7 +5,7 @@ import {
   NavigationInstrument,
 } from "openwpm-webext-instrumentation";
 
-import * as loggingdb from "./loggingdb.js";
+import * as loggingDB from "./loggingdb.js";
 
 import * as socket from "WEE-Sockets-API";
 
