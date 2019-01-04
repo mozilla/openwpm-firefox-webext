@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "CHANGE ME",
   "background": {
-    "scripts": ["feature.js", "background.js"]
+    "scripts": ["feature.js"]
   },
   "content_scripts": [
     {
