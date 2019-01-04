@@ -1,0 +1,54 @@
+{
+  "name": "WEE-Sockets-API-Example",
+  "description": "Example implementation of WEE-Sockets-API",
+  "version": "1.0.0",
+  "author": "Mozilla",
+  "dependencies": {
+    "WEE-Sockets-API": "nhnt11/WEE-Sockets-API#openwpm-bufferpack",
+    "WEE-ProfileDirIO-API": "nhnt11/WEE-ProfileDirIO-API",
+    "openwpm-webext-instrumentation": "github:mozilla/openwpm-webext-instrumentation#master"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-plugin-import": "^2.5.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-mozilla": "^0.14.0",
+    "eslint-plugin-no-unsanitized": "^3.0.2",
+    "npm-run-all": "^4.1.1",
+    "ts-loader": "^5.2.2",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.1.4",
+    "typescript-eslint-parser": "^20.0.0",
+    "web-ext": "^2.7.0",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=8.11.1"
+  },
+  "homepage": "",
+  "keywords": [
+    "firefox",
+    "mozilla",
+    "openwpm"
+  ],
+  "license": "MPL-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhnt11/WEE-Sockets-API-Example"
+  },
+  "scripts": {
+    "prebuild": "cp -r node_modules/WEE-Sockets-API/lib/* src/ && cp -r node_modules/WEE-FileWriting-API/lib/privileged/* src/privileged/ && webpack",
+    "build": "web-ext build",
+    "eslint": "eslint . --ext jsm,js,json",
+    "lint": "npm-run-all lint:*",
+    "lint:eslint": "npm run eslint",
+    "lint:web-ext-lint": "web-ext lint",
+    "sign": "echo 'TBD, see: https://bugzilla.mozilla.org/show_bug.cgi?id=1407757'",
+    "start": "web-ext run --no-reload",
+    "test": "echo 'Error: no test specified' && exit 0",
+    "watch": "web-ext run"
+  }
+}

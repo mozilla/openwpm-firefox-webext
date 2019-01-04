@@ -1,0 +1,22 @@
+[
+  {
+    "namespace": "filewriting",
+    "functions": [
+      {
+        "name": "writeFile",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "type": "string",
+            "name": "filename"
+          },
+          {
+            "type": "string",
+            "name": "data"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "manifest_version": 2,
+  "name": "WEE Socket API Example",
+  "version": "1.0",
+  "description": "CHANGE ME",
+  "background": {
+    "scripts": ["feature.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "applications": {
+    "gecko": {
+      "id": "wee_socket_api_example@foo.bar",
+      "strict_min_version": "60.0"
+    }
+  },
+
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "cookies",
+    "management",
+    "storage",
+    "alarms",
+    "downloads",
+    "tabs"
+  ],
+
+  "experiment_apis": {
+    "sockets": {
+      "schema": "./privileged/sockets/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "script": "./privileged/sockets/api.js",
+        "paths": [["sockets"]]
+      }
+    },
+    "filewriting": {
+      "schema": "./privileged/filewriting/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "script": "./privileged/filewriting/api.js",
+        "paths": [["filewriting"]]
+      }
+    }
+  }
+}
