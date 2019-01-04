@@ -38,14 +38,17 @@ async function foo() {
 
   if (config['cookie_instrument']) {
     loggingDB.logDebug("Cookie instrumentation enabled");
+    let cookieInstrument = new CookieInstrument(loggingDB);
     cookieInstrument.run(config['crawl_id']);
   }
   if (config['js_instrument']) {
     loggingDB.logDebug("Javascript instrumentation enabled");
+    let jsInstrument = new JavascriptInstrument(loggingDB);
     jsInstrument.run(config['crawl_id'], config['testing']);
   }
   if (config['http_instrument']) {
     loggingDB.logDebug("HTTP Instrumentation enabled");
+    let httpInstrument = new HttpInstrument(loggingDB);
     httpInstrument.run(config['crawl_id'], config['save_javascript'],
                        config['save_all_content']);
 }
