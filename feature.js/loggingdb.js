@@ -155,3 +155,8 @@ export let saveRecord = function(instrument, record) {
     }
     dataAggregator.send(JSON.stringify([instrument, record]), 'j');
 }
+
+// Stub for now
+export let saveContent = async function(content, contentHash) {
+    console.log("saveContent not implemented yet");
+};

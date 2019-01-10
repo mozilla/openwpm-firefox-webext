@@ -13,7 +13,7 @@ const defaultConfig = {
     firefox: process.env.FIREFOX_BINARY || "firefox",
     browserConsole: true,
     startUrl: ["about:debugging"],
-    pref: [],
+    pref: ["extensions.legacy.enabled=true"],
   },
 };
 
