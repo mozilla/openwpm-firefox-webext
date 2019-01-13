@@ -2,12 +2,9 @@ import {
   CookieInstrument,
   JavascriptInstrument,
   HttpInstrument,
-  NavigationInstrument,
 } from "openwpm-webext-instrumentation";
 
 import * as loggingDB from "./loggingdb.js";
-
-import * as socket from "WEE-Sockets-API";
 
 async function foo() {
   // Read the browser configuration from file
@@ -41,17 +38,19 @@ async function foo() {
     let cookieInstrument = new CookieInstrument(loggingDB);
     cookieInstrument.run(config['crawl_id']);
   }
+
   if (config['js_instrument']) {
     loggingDB.logDebug("Javascript instrumentation enabled");
     let jsInstrument = new JavascriptInstrument(loggingDB);
     jsInstrument.run(config['crawl_id'], config['testing']);
   }
+
   if (config['http_instrument']) {
     loggingDB.logDebug("HTTP Instrumentation enabled");
     let httpInstrument = new HttpInstrument(loggingDB);
     httpInstrument.run(config['crawl_id'], config['save_javascript'],
                        config['save_all_content']);
-}
+  }
 }
 
 foo();
