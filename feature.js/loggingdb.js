@@ -154,9 +154,31 @@ export let saveRecord = function(instrument, record) {
       return;
     }
     dataAggregator.send(JSON.stringify([instrument, record]), 'j');
-}
+};
 
 // Stub for now
 export let saveContent = async function(content, contentHash) {
-    console.log("saveContent not implemented yet");
+  // Send page content to the data aggregator
+  // deduplicated by contentHash in a levelDB database
+  if (debugging) {
+    console.log("LDB contentHash:",contentHash,"with length",content.length);
+    return;
+  }
+  dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]), 'j');
+};
+
+function encode_utf8(s) {
+  return unescape(encodeURIComponent(s));
+}
+
+export let escapeString = function(string) {
+    // Convert to string if necessary
+    if(typeof string != "string")
+        string = "" + string;
+
+    return encode_utf8(string);
+};
+
+export let boolToInt = function(bool) {
+    return bool ? 1 : 0;
 };
