@@ -7,7 +7,7 @@ let dataAggregator = null;
 let logAggregator = null;
 let listeningSocket = null;
 
-export let open = function(aggregatorAddress, logAddress, curr_crawlID) {
+export let open = async function(aggregatorAddress, logAddress, curr_crawlID) {
     if (aggregatorAddress == null && logAddress == null && curr_crawlID == '') {
         console.log("Debugging, everything will output to console");
         debugging = true;
@@ -20,14 +20,14 @@ export let open = function(aggregatorAddress, logAddress, curr_crawlID) {
     // Connect to MPLogger for extension info/debug/error logging
     if (logAddress != null) {
         logAggregator = new socket.SendingSocket();
-        var rv = logAggregator.connect(logAddress[0], logAddress[1]);
+        let rv = await logAggregator.connect(logAddress[0], logAddress[1]);
         console.log("logSocket started?", rv)
     }
 
     // Connect to databases for saving data
     if (aggregatorAddress != null) {
         dataAggregator = new socket.SendingSocket();
-        var rv = dataAggregator.connect(aggregatorAddress[0], aggregatorAddress[1]);
+        let rv = await dataAggregator.connect(aggregatorAddress[0], aggregatorAddress[1]);
         console.log("sqliteSocket started?",rv);
     }
 
