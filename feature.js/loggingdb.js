@@ -35,7 +35,7 @@ export let open = function(aggregatorAddress, logAddress, curr_crawlID) {
     listeningSocket = new socket.ListeningSocket();
     console.log("Starting socket listening for incomming connections.");
     listeningSocket.startListening().then(() => {
-        browser.filewriting.writeFile("extension_port.txt", `${listeningSocket.port}`);
+        browser.profileDirIO.writeFile("extension_port.txt", `${listeningSocket.port}`);
     });
 };
 
