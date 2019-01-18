@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "WEE Socket API Example",
+  "name": "OpenWPM",
   "version": "1.0",
-  "description": "CHANGE ME",
+  "description": "OpenWPM Client Extension",
   "background": {
     "scripts": ["feature.js"]
   },
@@ -17,7 +17,7 @@
   ],
   "applications": {
     "gecko": {
-      "id": "wee_socket_api_example@foo.bar",
+      "id": "openwpm@mozilla.org",
       "strict_min_version": "60.0"
     }
   },
