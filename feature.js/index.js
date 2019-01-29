@@ -7,7 +7,7 @@ import {
 
 import * as loggingDB from "./loggingdb.js";
 
-async function foo() {
+async function main() {
   // Read the browser configuration from file
   let filename = "browser_params.json";
   let config = await browser.profileDirIO.readFile(filename);
@@ -59,4 +59,4 @@ async function foo() {
   }
 }
 
-foo();
+main();
