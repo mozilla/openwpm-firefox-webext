@@ -37,7 +37,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nhnt11/openwpm-firefox-webext"
+    "url": "https://github.com/mozilla/openwpm-firefox-webext"
   },
   "scripts": {
     "prebuild": "cp -r node_modules/WEE-Sockets-API/lib/* src/ && cp -r node_modules/WEE-ProfileDirIO-API/lib/privileged/* src/privileged/ && webpack",
@@ -46,7 +46,7 @@
     "lint": "npm-run-all lint:*",
     "lint:eslint": "npm run eslint",
     "lint:web-ext-lint": "web-ext lint",
-    "sign": "echo 'TBD, see: https://bugzilla.mozilla.org/show_bug.cgi?id=1407757'",
+    "sign": "echo 'TBD'",
     "start": "web-ext run --no-reload",
     "test": "echo 'Error: no test specified' && exit 0",
     "watch": "web-ext run"
