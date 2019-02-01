@@ -47,18 +47,19 @@ this.sockets = class extends ExtensionAPI {
                   let buff = bis.readByteArray(5); // 32 bit int followed by a char = 5 bytes
                   let meta = bufferpack.unpack('>Lc', buff);
                   let string = bis.readBytes(meta[0]);
-                  switch (meta[1]) {
-                    case 'j':
-                      string = JSON.parse(string);
-                    case 'n':
-                      gManager.dataListeners.forEach((listener) => {
-                        listener(id, string);
-                      });
-                      break;
-                    default:
-                      console.error("Unsupported serialization type (",meta[1],").");
-                      break;
+
+                  if (meta[1] == 'j') {
+                    string = JSON.parse(string);
                   }
+
+                  if (['j', 'n'].includes(meta[1])) {
+                    gManager.dataListeners.forEach((listener) => {
+                      listener(id, string);
+                    });
+                  } else {
+                    console.error(`Unsupported serialization type ('${meta[1]}').`);
+                  }
+
                   inputStream.asyncWait(socketListener, 0, 0, tm.mainThread);
                 }
               };
