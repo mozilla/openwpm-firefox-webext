@@ -99,8 +99,10 @@ this.sockets = class extends ExtensionAPI {
 
         connect(id, host, port) {
           if (!gManager.sendingSocketMap.has(id)) {
+            console.error("Unknown socket ID; trying to use a socket that doesn't exist yet?");
             return;
           }
+
           try {
             let socket = gManager.sendingSocketMap.get(id);
             var transport = socketService.createTransport(null, 0, host, port, null);
@@ -115,8 +117,10 @@ this.sockets = class extends ExtensionAPI {
 
         sendData(id, data, serializationIdent) {
           if (!gManager.sendingSocketMap.has(id)) {
+            console.error("Unknown socket ID; trying to use a socket that doesn't exist yet?");
             return;
           }
+
           let socket = gManager.sendingSocketMap.get(id);
           try {
             let buff = bufferpack.pack('>Lc',[data.length, serializationIdent]);
@@ -131,8 +135,10 @@ this.sockets = class extends ExtensionAPI {
 
         close(id) {
           if (!gManager.sendingSocketMap.has(id)) {
+            console.error("Unknown socket ID; trying to use a socket that doesn't exist yet?");
             return;
           }
+
           gManager.sendingSocketMap.get(id).stream.close();
         },
       },
