@@ -25,7 +25,6 @@ export class ListeningSocket {
   }
 
   _updateQueue(data) {
-    console.log('_updateQueue data', data);
     this.queue.push(data);
   }
 }
