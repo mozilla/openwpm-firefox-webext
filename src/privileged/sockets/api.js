@@ -6,9 +6,11 @@ let socketService = Cc["@mozilla.org/network/socket-transport-service;1"]
                       .getService(Ci.nsISocketTransportService);
 
 let gManager = {
+  // Map of port -> server socket
   serverSocketMap: new Map(),
+  // Map of ID -> server socket
   sendingSocketMap: new Map(),
-  socketCount: 0,
+  nextSendingSocketId: 0,
   onDataReceivedListeners: new Set(),
 };
 
@@ -20,16 +22,15 @@ this.sockets = class extends ExtensionAPI {
           let serverSocket = Cc["@mozilla.org/network/server-socket;1"]
                                .createInstance(Ci.nsIServerSocket);
           serverSocket.init(-1, true, -1); // init with random port
-          gManager.socketCount++;
           gManager.serverSocketMap.set(serverSocket.port, serverSocket);
           return serverSocket.port;
         },
 
-        startListening(id) {
-          if (!gManager.serverSocketMap.has(id)) {
+        startListening(port) {
+          if (!gManager.serverSocketMap.has(port)) {
             return;
           }
-          let socket = gManager.serverSocketMap.get(id);
+          let socket = gManager.serverSocketMap.get(port);
           socket.asyncListen({
             onSocketAccepted: (sock, transport) => {
               let inputStream = transport.openInputStream(0, 0, 0);
@@ -38,7 +39,10 @@ this.sockets = class extends ExtensionAPI {
                   try {
                     inputStream.available();
                   } catch (e) {
-                    // probably closed.
+                    if (e.result != Cr.NS_BASE_STREAM_CLOSED) {
+                      // Abnormal close, let's log the error.
+                      console.error(e);
+                    }
                     return;
                   }
                   let bis = Cc["@mozilla.org/binaryinputstream;1"]
@@ -84,13 +88,13 @@ this.sockets = class extends ExtensionAPI {
         ).api(),
 
         async createSendingSocket() {
-          gManager.socketCount++;
-          gManager.sendingSocketMap.set(gManager.socketCount, {
+          gManager.nextSendingSocketId++;
+          gManager.sendingSocketMap.set(gManager.nextSendingSocketId, {
             stream: null,
             bOutputStream: Cc["@mozilla.org/binaryoutputstream;1"]
                              .createInstance(Ci.nsIBinaryOutputStream),
           });
-          return gManager.socketCount;
+          return gManager.nextSendingSocketId;
         },
 
         connect(id, host, port) {
