@@ -9,7 +9,7 @@ let gManager = {
   serverSocketMap: new Map(),
   sendingSocketMap: new Map(),
   socketCount: 0,
-  dataListeners: new Set(),
+  onDataReceivedListeners: new Set(),
 };
 
 this.sockets = class extends ExtensionAPI {
@@ -53,7 +53,7 @@ this.sockets = class extends ExtensionAPI {
                   }
 
                   if (['j', 'n'].includes(meta[1])) {
-                    gManager.dataListeners.forEach((listener) => {
+                    gManager.onDataReceivedListeners.forEach((listener) => {
                       listener(id, string);
                     });
                   } else {
@@ -76,9 +76,9 @@ this.sockets = class extends ExtensionAPI {
               fire.async(id, data);
             };
 
-            gManager.dataListeners.add(listener);
+            gManager.onDataReceivedListeners.add(listener);
             return () => {
-              gManager.dataListeners.delete(listener);
+              gManager.onDataReceivedListeners.delete(listener);
             };
           }
         ).api(),
