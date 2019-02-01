@@ -36,7 +36,7 @@ this.sockets = class extends ExtensionAPI {
               let socketListener = {
                 onInputStreamReady: () => {
                   try {
-                    let count = inputStream.available();
+                    inputStream.available();
                   } catch (e) {
                     // probably closed.
                     return;
