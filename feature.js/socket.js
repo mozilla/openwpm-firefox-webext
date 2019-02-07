@@ -1,8 +1,11 @@
 let DataReceiver = {
   callbacks: new Map(),
-  onDataReceived: (aSocketId, aData) => {
+  onDataReceived: (aSocketId, aData, aJSON) => {
     if (!DataReceiver.callbacks.has(aSocketId)) {
       return;
+    }
+    if (aJSON) {
+      aData = JSON.parse(aData);
     }
     DataReceiver.callbacks.get(aSocketId)._updateQueue(aData);
   },
@@ -39,9 +42,9 @@ export class SendingSocket {
     console.log(`Connected to ${host}:${port}`);
   }
 
-  send(aData, serializationSymbol) {
+  send(aData, aJSON=true) {
     try {
-      browser.sockets.sendData(this.id, aData, serializationSymbol);
+      browser.sockets.sendData(this.id, aData, !!aJSON);
       return true;
     } catch (err) {
       console.error(err,err.message);

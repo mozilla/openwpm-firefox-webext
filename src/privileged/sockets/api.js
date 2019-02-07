@@ -52,13 +52,9 @@ this.sockets = class extends ExtensionAPI {
                   let meta = bufferpack.unpack('>Lc', buff);
                   let string = bis.readBytes(meta[0]);
 
-                  if (meta[1] == 'j') {
-                    string = JSON.parse(string);
-                  }
-
                   if (['j', 'n'].includes(meta[1])) {
                     gManager.onDataReceivedListeners.forEach((listener) => {
-                      listener(id, string);
+                      listener(port, string, meta[1] == 'j');
                     });
                   } else {
                     console.error(`Unsupported serialization type ('${meta[1]}').`);
@@ -115,7 +111,7 @@ this.sockets = class extends ExtensionAPI {
           }
         },
 
-        sendData(id, data, serializationIdent) {
+        sendData(id, data, json) {
           if (!gManager.sendingSocketMap.has(id)) {
             console.error("Unknown socket ID; trying to use a socket that doesn't exist yet?");
             return;
@@ -123,7 +119,8 @@ this.sockets = class extends ExtensionAPI {
 
           let socket = gManager.sendingSocketMap.get(id);
           try {
-            let buff = bufferpack.pack('>Lc',[data.length, serializationIdent]);
+            let serializationSymbol = json ? 'j' : 'n';
+            let buff = bufferpack.pack('>Lc',[data.length, serializationSymbol]);
             socket.bOutputStream.writeByteArray(buff, buff.length);
             socket.stream.write(data, data.length);
             return true;

@@ -58,8 +58,8 @@
             "name": "data"
           },
           {
-            "type": "string",
-            "name": "serializationIdent"
+            "type": "boolean",
+            "name": "json"
           }
         ]
       },
@@ -87,6 +87,10 @@
           {
             "type": "string",
             "name": "data"
+          },
+          {
+            "type": "boolean",
+            "name": "json"
           }
         ]
       }
