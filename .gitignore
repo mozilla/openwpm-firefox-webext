@@ -1,5 +1,5 @@
 node_modules
-src/*.js
-src/privileged
+src/feature.js
+src/content.js
 dist
 openwpm.xpi
