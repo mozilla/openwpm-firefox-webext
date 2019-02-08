@@ -4,8 +4,6 @@
   "version": "1.0.0",
   "author": "Mozilla",
   "dependencies": {
-    "WEE-Sockets-API": "nhnt11/WEE-Sockets-API#openwpm-bufferpack",
-    "WEE-ProfileDirIO-API": "nhnt11/WEE-ProfileDirIO-API",
     "openwpm-webext-instrumentation": "github:mozilla/openwpm-webext-instrumentation#master"
   },
   "devDependencies": {
@@ -40,7 +38,7 @@
     "url": "https://github.com/mozilla/openwpm-firefox-webext"
   },
   "scripts": {
-    "prebuild": "cp -r node_modules/WEE-Sockets-API/lib/* src/ && cp -r node_modules/WEE-ProfileDirIO-API/lib/privileged/* src/privileged/ && webpack",
+    "prebuild": "webpack",
     "build": "web-ext build",
     "eslint": "eslint . --ext jsm,js,json",
     "lint": "npm-run-all lint:*",

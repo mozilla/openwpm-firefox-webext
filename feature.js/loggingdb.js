@@ -1,4 +1,4 @@
-import * as socket from "WEE-Sockets-API";
+import * as socket from "./socket.js";
 
 let crawlID = null;
 let visitID = null;
@@ -72,7 +72,7 @@ export let logInfo = function(msg) {
 
     // Log level INFO == 20 (https://docs.python.org/2/library/logging.html#logging-levels)
     var log_json = makeLogJSON(20, msg);
-    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]), 'j');
+    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]));
 };
 
 export let logDebug = function(msg) {
@@ -85,7 +85,7 @@ export let logDebug = function(msg) {
 
     // Log level DEBUG == 10 (https://docs.python.org/2/library/logging.html#logging-levels)
     var log_json = makeLogJSON(10, msg);
-    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]), 'j');
+    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]));
 };
 
 export let logWarn = function(msg) {
@@ -98,7 +98,7 @@ export let logWarn = function(msg) {
 
     // Log level WARN == 30 (https://docs.python.org/2/library/logging.html#logging-levels)
     var log_json = makeLogJSON(30, msg);
-    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]), 'j');
+    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]));
 };
 
 export let logError = function(msg) {
@@ -111,7 +111,7 @@ export let logError = function(msg) {
 
     // Log level INFO == 40 (https://docs.python.org/2/library/logging.html#logging-levels)
     var log_json = makeLogJSON(40, msg);
-    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]), 'j');
+    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]));
 };
 
 export let logCritical = function(msg) {
@@ -124,7 +124,7 @@ export let logCritical = function(msg) {
 
     // Log level CRITICAL == 50 (https://docs.python.org/2/library/logging.html#logging-levels)
     var log_json = makeLogJSON(50, msg);
-    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]), 'j');
+    logAggregator.send(JSON.stringify(['EXT', JSON.stringify(log_json)]));
 };
 
 export let dataReceiver = {
@@ -153,7 +153,7 @@ export let saveRecord = function(instrument, record) {
       console.log("EXTENSION", instrument, JSON.stringify(record));
       return;
     }
-    dataAggregator.send(JSON.stringify([instrument, record]), 'j');
+    dataAggregator.send(JSON.stringify([instrument, record]));
 };
 
 // Stub for now
@@ -164,7 +164,7 @@ export let saveContent = async function(content, contentHash) {
     console.log("LDB contentHash:",contentHash,"with length",content.length);
     return;
   }
-  dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]), 'j');
+  dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]));
 };
 
 function encode_utf8(s) {
